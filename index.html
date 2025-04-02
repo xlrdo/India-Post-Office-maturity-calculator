@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Post Office Schemes Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>India Post Office Savings Schemes Calculator</h1>
+            <p>Calculate returns on various Post Office investment schemes</p>
+        </header>
+        
+        <div class="calculator">
+            <div class="tabs">
+                <button class="tab active" data-tab="rd">Recurring Deposit (RD)</button>
+                <button class="tab" data-tab="fd">Fixed Deposit (FD)</button>
+                <button class="tab" data-tab="scss">Senior Citizen Savings Scheme (SCSS)</button>
+                <button class="tab" data-tab="ppf">Public Provident Fund (PPF)</button>
+                <button class="tab" data-tab="kvp">Kisan Vikas Patra (KVP)</button>
+                <button class="tab" data-tab="nsc">National Savings Certificate (NSC)</button>
+                <button class="tab" data-tab="mis">Monthly Income Scheme (MIS)</button>
+            </div>
+            
+            <!-- Recurring Deposit (RD) -->
+            <div class="tab-content active" id="rd-content">
+                <h2>Post Office Recurring Deposit (RD)</h2>
+                <p>Invest monthly and earn interest compounded quarterly. The current interest rate is 7.1% per annum.</p>
+                
+                <div class="form-group">
+                    <label for="rd-amount">Monthly Deposit Amount (₹)</label>
+                    <input type="number" id="rd-amount" min="10" step="10" value="1000">
+                </div>
+                
+                <div class="form-group">
+                    <label for="rd-term">Term (Years)</label>
+                    <select id="rd-term">
+                        <option value="5">5 Years</option>
+                    </select>
+                </div>
+                
+                <button onclick="calculateRD()">Calculate</button>
+                
+                <div class="results" id="rd-results">
+                    <h3>RD Investment Summary</h3>
+                    <div class="result-row">
+                        <span>Total Deposited Amount:</span>
+                        <strong id="rd-deposited">₹0</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Interest Earned:</span>
+                        <strong id="rd-interest">₹0</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Maturity Amount:</span>
+                        <strong id="rd-maturity">₹0</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Fixed Deposit (FD) -->
+            <div class="tab-content" id="fd-content">
+                <h2>Post Office Time Deposit (Fixed Deposit)</h2>
+                <p>One-time investment with interest compounded quarterly. Interest rates vary based on tenure.</p>
+                
+                <div class="form-group">
+                    <label for="fd-amount">Investment Amount (₹)</label>
+                    <input type="number" id="fd-amount" min="100" step="100" value="10000">
+                </div>
+                
+                <div class="form-group">
+                    <label for="fd-term">Term</label>
+                    <select id="fd-term">
+                        <option value="1">1 Year (6.9%)</option>
+                        <option value="2">2 Years (6.9%)</option>
+                        <option value="3">3 Years (7.0%)</option>
+                        <option value="5" selected>5 Years (7.0%)</option>
+                    </select>
+                </div>
+                
+                <button onclick="calculateFD()">Calculate</button>
+                
+                <div class="results" id="fd-results">
+                    <h3>Time Deposit Investment Summary</h3>
+                    <div class="result-row">
+                        <span>Principal Amount:</span>
+                        <strong id="fd-principal">₹0</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Interest Earned:</span>
+                        <strong id="fd-interest">₹0</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Maturity Amount:</span>
+                        <strong id="fd-maturity">₹0</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Senior Citizen Savings Scheme (SCSS) -->
+            <div class="tab-content" id="scss-content">
+                <h2>Senior Citizen Savings Scheme (SCSS)</h2>
+                <p>A government-backed savings scheme for senior citizens with quarterly interest payouts. Current interest rate is 8.2% per annum.</p>
+                
+                <div class="form-group">
+                    <label for="scss-amount">Investment Amount (₹)</label>
+                    <input type="number" id="scss-amount" min="1000" max="1500000" step="1000" value="100000">
+                </div>
+                
+                <div class="form-group">
+                    <label>Term: 5 Years (can be extended for 3 more years)</label>
+                </div>
+                
+                <button onclick="calculateSCSS()">Calculate</button>
+                
+                <div class="results" id="scss-results">
+                    <h3>SCSS Investment Summary</h3>
+                    <div class="result-row">
+                        <span>Principal Amount:</span>
+                        <strong id="scss-principal">₹0</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Interest Rate:</span>
+                        <strong>8.2% p.a.</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Quarterly Interest Payout:</span>
+                        <strong id="scss-quarterly">₹0</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Annual Interest Amount:</span>
+                        <strong id="scss-annual">₹0</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Total Interest over 5 years:</span>
+                        <strong id="scss-total-interest">₹0</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Public Provident Fund (PPF) -->
+            <div class="tab-content" id="ppf-content">
+                <h2>Public Provident Fund (PPF)</h2>
+                <p>A long-term investment option with tax benefits. Current interest rate is 7.1% per annum, compounded annually.</p>
+                
+                <div class="form-group">
+                    <label for="ppf-amount">Annual Investment Amount (₹)</label>
+                    <input type="number" id="ppf-amount" min="500" max="150000" step="500" value="50000">
+                </div>
+                
+                <div class="form-group">
+                    <label for="ppf-term">Term (Years)</label>
+                    <select id="ppf-term">
+                        <option value="15">15 Years (Minimum Lock-in Period)</option>
+                        <option value="20">20 Years</option>
+                        <option value="25">25 Years</option>
+                        <option value="30">30 Years</option>
+                    </select>
+                </div>
+                
+                <button onclick="calculatePPF()">Calculate</button>
+                
+                <div class="results" id="ppf-results">
+                    <h3>PPF Investment Summary</h3>
+                    <div class="result-row">
+                        <span>Total Investment:</span>
+                        <strong id="ppf-invested">₹0</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Interest Earned:</span>
+                        <strong id="ppf-interest">₹0</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Maturity Amount:</span>
+                        <strong id="ppf-maturity">₹0</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kisan Vikas Patra (KVP) -->
+            <div class="tab-content" id="kvp-content">
+                <h2>Kisan Vikas Patra (KVP)</h2>
+                <p>A savings certificate scheme where your investment doubles in around 9 years. Current interest rate is 7.5% per annum, compounded annually.</p>
+                
+                <div class="form-group">
+                    <label for="kvp-amount">Investment Amount (₹)</label>
+                    <input type="number" id="kvp-amount" min="1000" step="1000" value="50000">
+                </div>
+                
+                <button onclick="calculateKVP()">Calculate</button>
+                
+                <div class="results" id="kvp-results">
+                    <h3>KVP Investment Summary</h3>
+                    <div class="result-row">
+                        <span>Principal Amount:</span>
+                        <strong id="kvp-principal">₹0</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Interest Rate:</span>
+                        <strong>7.5% p.a.</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Doubling Period:</span>
+                        <strong id="kvp-doubling">0 years</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Maturity Amount:</span>
+                        <strong id="kvp-maturity">₹0</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- National Savings Certificate (NSC) -->
+            <div class="tab-content" id="nsc-content">
+                <h2>National Savings Certificate (NSC)</h2>
+                <p>A fixed income investment scheme with tax benefits. Current interest rate is 7.7% per annum, compounded annually.</p>
+                
+                <div class="form-group">
+                    <label for="nsc-amount">Investment Amount (₹)</label>
+                    <input type="number" id="nsc-amount" min="100" step="100" value="10000">
+                </div>
+                
+                <div class="form-group">
+                    <label for="nsc-term">Term</label>
+                    <select id="nsc-term">
+                        <option value="5">5 Years</option>
+                    </select>
+                </div>
+                
+                <button onclick="calculateNSC()">Calculate</button>
+                
+                <div class="results" id="nsc-results">
+                    <h3>NSC Investment Summary</h3>
+                    <div class="result-row">
+                        <span>Principal Amount:</span>
+                        <strong id="nsc-principal">₹0</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Interest Earned:</span>
+                        <strong id="nsc-interest">₹0</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Maturity Amount:</span>
+                        <strong id="nsc-maturity">₹0</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Monthly Income Scheme (MIS) -->
+            <div class="tab-content" id="mis-content">
+                <h2>Post Office Monthly Income Scheme (MIS)</h2>
+                <p>Earn regular monthly income through this investment. Current interest rate is 7.4% per annum, payable monthly.</p>
+                
+                <div class="form-group">
+                    <label for="mis-amount">Investment Amount (₹)</label>
+                    <input type="number" id="mis-amount" min="1000" max="900000" step="1000" value="100000">
+                </div>
+                
+                <div class="form-group">
+                    <label>Term: 5 Years</label>
+                </div>
+                
+                <button onclick="calculateMIS()">Calculate</button>
+                
+                <div class="results" id="mis-results">
+                    <h3>MIS Investment Summary</h3>
+                    <div class="result-row">
+                        <span>Principal Amount:</span>
+                        <strong id="mis-principal">₹0</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Interest Rate:</span>
+                        <strong>7.4% p.a.</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Monthly Interest Income:</span>
+                        <strong id="mis-monthly">₹0</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Annual Interest Income:</span>
+                        <strong id="mis-annual">₹0</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Total Interest over 5 years:</span>
+                        <strong id="mis-total-interest">₹0</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h3>About Post Office Savings Schemes</h3>
+            <p>India Post offers a variety of savings schemes catering to different investment needs with guaranteed returns and government backing. These schemes are popular for their safety, tax benefits, and competitive interest rates.</p>
+            
+            <p class="note">Note: Interest rates mentioned are current as of April 2025 and are subject to change by the Government of India. This calculator is for informational purposes only.</p>
+        </div>
+    </div>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>
